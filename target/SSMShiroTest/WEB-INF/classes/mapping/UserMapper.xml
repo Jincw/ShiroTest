@@ -11,4 +11,40 @@
     <select id="listAllUser" resultType="com.jcw.entity.User">
         select * from user
     </select>
+    <!-- 查询总的记录数 -->
+    <select id="selectCount" resultType="int">
+    select count(*) from user;
+</select>
+
+    <!-- 分页查询 -->
+    <select id="findByPage" parameterType="Map" resultType="com.jcw.entity.User">
+        select * from user
+        <if test="start != null and size != null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <!-- 多条件查询 -->
+    <select id="findCondition" parameterType="Map" resultType="com.jcw.entity.User">
+        <!-- where 1=1 可以保证where后的语句永远是正确的
+            因为在where后的动态SQL可能会执行也可能不会不会执行，如果没有执行，那么where后将跟一个空值，那么显然这样是会报错的
+        -->
+        select * from user where 1 = 1
+        <if test="username != null and username != ''">
+            and username like concat('%', #{username}, '%')
+        </if>
+        <if test="phone != null and phone != ''">
+            and phone like concat('%', #{phone}, '%')
+        </if>
+        <!-- 我们通过在Service中的计算决定了我们每次请求的数据应该从那一页开始，那一页结束 -->
+        <if test="start != null and size != null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <delete id="delUserById" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+    <select id="selectById" parameterType="int" resultType="com.jcw.entity.User">
+        select * from user where id = #{id}
+    </select>
 </mapper>

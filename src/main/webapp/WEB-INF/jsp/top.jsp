@@ -1,17 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
 <head>
     <meta charset="utf-8">
     <title>Bootstrap 实例 - 一个简单的网页</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        .fakeimg {
-            height: 200px;
-            background: #aaa;
-        }
-    </style>
 </head>
 <body>
 <div class="jumbotron text-center" style="margin-bottom:0">
@@ -31,7 +25,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="${pageContext.request.contextPath}/user/listAllUser">主页</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/listAllUser?pageCode=1">主页</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
@@ -86,5 +80,5 @@
         </div>
     </div>
 </nav>
-</body>
-</html>
+
+
