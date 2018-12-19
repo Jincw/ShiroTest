@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -26,6 +27,34 @@
             })
         }
     }
+    //全选/全不选
+    function ckAll(){
+        var flag=document.getElementById("allChecks").checked;
+        var cks=document.getElementsByName("check");
+        for(var i=0;i<cks.length;i++){
+            cks[i].checked=flag;
+        }
+    }
+    //批量删除
+    function delAllUser(){
+        var cks=document.getElementsByName("check");
+        var str="";
+        //拼接所有的图书id
+        for(var i=0;i<cks.length;i++){
+            if(cks[i].checked){
+                str+="id="+cks[i].value+"&";
+            }
+        }
+        if (str.length===0){
+            alert("未选中用户信息！");
+            return;
+        }
+        if(!confirm("确定要删除这些用户信息吗？")){
+            return ;
+        }
+        str=str.substring(0, str.length-1);//去掉字符串末尾的‘&’
+        location.href="${pageContext.request.contextPath}/user/delAlluser?"+str;
+    }
 </script>
 <div>
     <jsp:include page="top.jsp"/>
@@ -37,6 +66,7 @@
     <h3>用户信息</h3>
     <form class="listFrom" action="${pageContext.request.contextPath}/user/listAllUser">
         <input value="添加" type="button" style="background-color: #0066bb; color: white" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-warning" onclick="delAllUser()">删除选中</button>
         <!-- 模态框（Modal） -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -88,7 +118,11 @@
             <caption>用户信息表</caption>
             <thead>
             <tr>
-                <th>编辑</th>
+                <th align="center" width="12%">
+                    <label>
+                        <input type="checkbox" id="allChecks"  onclick="ckAll()" /> 全选/全不选
+                    </label>
+                </th>
                 <th>用户编号</th>
                 <th>姓名</th>
                 <th>邮箱</th>
@@ -99,12 +133,10 @@
             <tbody>
             <c:forEach items="${page.beanList}" var="user">
                 <tr>
-                    <td>
-                        <p>
-                            <a href="#" class="btn btn-info btn-lg">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
-                        </p>
+                    <td style="CURSOR: hand; HEIGHT: 22px" align="center" width="23">
+                        <label>
+                            <input type="checkbox" name="check" value="${user.id}">
+                        </label>
                     </td>
                     <td>
                         <strong>${user.id}</strong>
@@ -120,13 +152,14 @@
                     </td>
                     <td>
                         <strong>
-                            <button id="deleteButton" class="layui-btn layui-btn-danger layui-btn-mini" onclick="deleteUserById('${user.id}')">删除</button>
+                            <button id="deleteButton" type="button" class="btn btn-danger" onclick="deleteUserById('${user.id}')">删除</button>
+                            <button id ="updateButton" type="button" class="btn btn-warning"><a href="${pageContext.request.contextPath}/user/updUserById?id=${user.id}">编辑</a></button>
                         </strong>
                     </td>
                 </tr>
             </c:forEach>
             <tr>
-                <td colspan="5">
+                <td colspan="4">
                     <label style="color: #3a8ee6">
                         <strong>共<b>${page.totalCount}</b>条记录，共<b>${page.totalPage}</b>页</strong>&nbsp;&nbsp;
                         <strong>每页显示</strong>
@@ -148,7 +181,9 @@
                         <strong>到第</strong>&nbsp;<input type="text" size="3" id="page" name="pageCode" class="from-control input-sm" style="width: 50px">&nbsp;<strong>页</strong>&nbsp;
                         <button type="submit" class="btn btn-sm btn-info">Go!</button>
                     </label>
+                </td>
 
+                <td colspan="2">
                     <ul class="pagination" style="color: #50f300">
                         <li>
                             <a href="${pageContext.request.contextPath}/user/listAllUser?pageCode=1&pageSize=${pageSize}"><strong>首页</strong></a>

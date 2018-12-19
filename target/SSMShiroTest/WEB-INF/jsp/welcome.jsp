@@ -24,6 +24,7 @@
     <div id="collapseThree" class="panel-collapse collapse">
         <div class="panel-body">
             <h5><a href="${pageContext.request.contextPath}/user/listAllUser?pageCode=1" style="color: #0066bb">用户管理</a></h5>
+            <h5><a href="${pageContext.request.contextPath}/file/toUpload" style="color: #0066bb">上传图片</a></h5>
         </div>
     </div>
 </div>

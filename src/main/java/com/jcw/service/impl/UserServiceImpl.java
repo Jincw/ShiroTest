@@ -1,7 +1,5 @@
 package com.jcw.service.impl;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.jcw.entity.PageBean;
 import com.jcw.entity.User;
 import com.jcw.mapper.UserMapper;
@@ -43,7 +41,6 @@ public class UserServiceImpl implements UserService {
 
         // 封装总记录数（从数据库中查询）
         int totalCount = userMapper.selectCount();
-        System.out.println("查询到的总记录数："+totalCount);
         pageBean.setTotalCount(totalCount);
 
         //封装总页数

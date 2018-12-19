@@ -130,7 +130,8 @@
                 /js/** = anon
                 /css/** = anon
                 /img/** = anon
-                /index.jsp = anon
+                /loginRegister.jsp = anon
+                /file/** = anon
                 /user/login = anon
                 /user/register = anon
                 /logout = logout
