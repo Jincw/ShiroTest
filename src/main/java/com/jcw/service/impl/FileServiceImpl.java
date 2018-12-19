@@ -9,4 +9,9 @@ import org.springframework.stereotype.Service;
 public class FileServiceImpl implements FileService {
     @Autowired
     FileMapper fileMapper;
+
+    @Override
+    public void upload(String s) {
+        fileMapper.upload(s);
+    }
 }

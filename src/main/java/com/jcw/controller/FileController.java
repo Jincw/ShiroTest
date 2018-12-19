@@ -37,6 +37,7 @@ public class FileController {
         }
         //写着测试，删了就可以
         for (int i = 0; i < list.size(); i++) {
+            fileService.upload(list.get(i));
             System.out.println("集合里面的数据" + list.get(i));
         }
         return "redirect:/file/toUpload";//跳转的页面
@@ -51,7 +52,7 @@ public class FileController {
                 // )
                 String filePath = request.getSession().getServletContext()
                         .getRealPath("/")
-                        + "img/" + file.getOriginalFilename();
+                        + "upload/" + file.getOriginalFilename();
                 list.add(file.getOriginalFilename());
                 File saveDir = new File(filePath);
                 if (!saveDir.getParentFile().exists())
